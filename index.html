@@ -30,10 +30,12 @@
     --accent-warm: #ffd166;
     --slot-empty-bg: rgba(255,255,255,0.16);
     --slot-empty-border: rgba(255,255,255,0.7);
-    --role-s: #6a95ff;
-    --role-sp: #b489f5;
-    --role-a: #ff8590;
-    --role-d: #6ad4b3;
+    --squad-blue: #6a95ff;
+    --squad-blue-tint: rgba(106, 149, 255, 0.10);
+    --squad-blue-tint-strong: rgba(106, 149, 255, 0.16);
+    --merc-red: #ef4444;
+    --merc-red-tint: rgba(239, 68, 68, 0.10);
+    --merc-red-tint-strong: rgba(239, 68, 68, 0.18);
     --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
     --shadow-md: 0 10px 28px rgba(0,0,0,0.28);
     --shadow-lg: 0 20px 48px rgba(0,0,0,0.42);
@@ -59,10 +61,12 @@
     --accent-2: #1e6b9d;
     --slot-empty-bg: rgba(255,255,255,0.32);
     --slot-empty-border: rgba(255,255,255,0.85);
-    --role-s: #3d5cc9;
-    --role-sp: #7d3fb8;
-    --role-a: #c94848;
-    --role-d: #2a8a75;
+    --squad-blue: #2c8ac4;
+    --squad-blue-tint: rgba(44, 138, 196, 0.12);
+    --squad-blue-tint-strong: rgba(44, 138, 196, 0.20);
+    --merc-red: #d43a3a;
+    --merc-red-tint: rgba(212, 58, 58, 0.10);
+    --merc-red-tint-strong: rgba(212, 58, 58, 0.18);
     --shadow-sm: 0 1px 2px rgba(20, 60, 100, 0.08);
     --shadow-md: 0 10px 28px rgba(20, 60, 100, 0.15);
     --shadow-lg: 0 20px 48px rgba(20, 60, 100, 0.22);
@@ -336,6 +340,12 @@
     font-variant-numeric: tabular-nums;
   }
 
+  .slot.filled.mercenary .slot-num {
+    font-size: clamp(15px, 2.3vw, 21px);
+    letter-spacing: 0.05em;
+    color: var(--merc-red);
+  }
+
   .slot-name {
     font-size: 11px;
     color: var(--ink-2);
@@ -344,6 +354,17 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .slot-affiliation {
+    font-size: 9px;
+    color: var(--ink-3);
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 1px;
+    letter-spacing: 0.02em;
   }
 
   [data-pos="속공"]     { grid-column: 7 / 13;  grid-row: 1; }
@@ -412,11 +433,11 @@
     justify-content: center;
     padding: 12px 6px 10px;
     background:
-      linear-gradient(122deg, transparent 22%, rgba(106,183,255,0.08) 34%, transparent 46%),
-      linear-gradient(122deg, transparent 58%, rgba(106,183,255,0.05) 66%, transparent 74%),
+      linear-gradient(122deg, transparent 22%, var(--squad-blue-tint) 34%, transparent 46%),
+      linear-gradient(122deg, transparent 58%, var(--squad-blue-tint) 66%, transparent 74%),
       var(--surface-2);
     border: 1px solid var(--line);
-    border-bottom: 3px solid var(--role-color);
+    border-bottom: 3px solid var(--squad-blue);
     border-radius: 8px;
     cursor: grab;
     transition: transform 0.12s, box-shadow 0.12s, opacity 0.12s, background 0.12s, border-color 0.12s;
@@ -430,8 +451,8 @@
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
     background:
-      linear-gradient(122deg, transparent 22%, rgba(106,183,255,0.14) 34%, transparent 46%),
-      linear-gradient(122deg, transparent 58%, rgba(106,183,255,0.08) 66%, transparent 74%),
+      linear-gradient(122deg, transparent 22%, var(--squad-blue-tint-strong) 34%, transparent 46%),
+      linear-gradient(122deg, transparent 58%, var(--squad-blue-tint) 66%, transparent 74%),
       var(--surface-3);
   }
 
@@ -463,6 +484,111 @@
     color: var(--ink);
     font-weight: 500;
     letter-spacing: 0.01em;
+  }
+
+  /* Mercenary card */
+  .player.mercenary {
+    border-bottom-color: var(--merc-red);
+    background:
+      linear-gradient(122deg, transparent 22%, var(--merc-red-tint) 34%, transparent 46%),
+      linear-gradient(122deg, transparent 58%, var(--merc-red-tint) 66%, transparent 74%),
+      var(--surface-2);
+  }
+  .player.mercenary:hover:not(.on-court) {
+    background:
+      linear-gradient(122deg, transparent 22%, var(--merc-red-tint-strong) 34%, transparent 46%),
+      linear-gradient(122deg, transparent 58%, var(--merc-red-tint) 66%, transparent 74%),
+      var(--surface-3);
+  }
+  .player.mercenary .player-num {
+    color: var(--merc-red);
+    font-size: 21px;
+    letter-spacing: 0.05em;
+  }
+  .player-affiliation {
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-top: 3px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.02em;
+    padding: 0 4px;
+  }
+  .merc-delete {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.35);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.15s, background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .player.mercenary:hover .merc-delete { opacity: 1; }
+  .merc-delete:hover {
+    background: var(--merc-red);
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  body[data-active-team="women"] .merc-delete {
+    background: rgba(20, 56, 82, 0.35);
+  }
+  body[data-active-team="women"] .merc-delete:hover {
+    background: var(--merc-red);
+  }
+
+  /* Add mercenary card */
+  .add-merc-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 6px 10px;
+    background: transparent;
+    border: 2px dashed var(--line-strong);
+    border-radius: 8px;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.12s;
+    font: inherit;
+    min-height: 74px;
+    text-align: center;
+    font-family: inherit;
+  }
+  .add-merc-card:hover {
+    border-color: var(--merc-red);
+    color: var(--merc-red);
+    background: var(--merc-red-tint);
+    transform: translateY(-2px);
+  }
+  .add-merc-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .add-merc-plus {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1;
+  }
+  .add-merc-label {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
   }
 
   /* Controls */
@@ -722,6 +848,7 @@
     box-shadow: var(--shadow-lg);
     overflow: hidden;
   }
+  .modal-content.compact { max-width: 420px; }
   .modal-head {
     padding: 16px 22px;
     display: flex;
@@ -748,6 +875,10 @@
     background: var(--accent);
     color: var(--on-accent);
     text-transform: uppercase;
+  }
+  .modal-head .modal-team-tag.merc {
+    background: var(--merc-red);
+    color: #fff;
   }
   .modal-close {
     padding: 4px 10px;
@@ -879,12 +1010,12 @@
   .modal-foot .spacer { flex: 1; }
   .modal-foot button.danger {
     background: transparent;
-    color: var(--role-a);
-    border-color: rgba(255, 133, 144, 0.4);
+    color: var(--merc-red);
+    border-color: rgba(239, 68, 68, 0.4);
   }
   .modal-foot button.danger:hover {
-    background: rgba(255, 133, 144, 0.12);
-    border-color: var(--role-a);
+    background: rgba(239, 68, 68, 0.12);
+    border-color: var(--merc-red);
   }
 
   .toast {
@@ -975,8 +1106,14 @@
     .slot-num {
       font-size: 22px;
     }
+    .slot.filled.mercenary .slot-num {
+      font-size: 13px;
+    }
     .slot-name {
       font-size: 10px;
+    }
+    .slot-affiliation {
+      font-size: 8px;
     }
     .card-head {
       padding: 12px 14px;
@@ -1010,8 +1147,22 @@
       font-size: 24px;
       margin-bottom: 4px;
     }
+    .player.mercenary .player-num {
+      font-size: 18px;
+    }
     .player-name {
       font-size: 11px;
+    }
+    .player-affiliation {
+      font-size: 9px;
+    }
+    .add-merc-card {
+      min-height: 68px;
+    }
+    .merc-delete {
+      opacity: 1;
+      width: 22px;
+      height: 22px;
     }
     .controls {
       padding: 12px 14px 14px;
@@ -1097,7 +1248,6 @@
           </div>
           <div class="roster-wrap">
             <div class="roster"></div>
-            <div class="roster-empty" hidden>참가 선수가 없습니다.</div>
           </div>
         </section>
 
@@ -1151,7 +1301,6 @@
           </div>
           <div class="roster-wrap">
             <div class="roster"></div>
-            <div class="roster-empty" hidden>참가 선수가 없습니다.</div>
           </div>
         </section>
 
@@ -1168,7 +1317,7 @@
   </section>
 </div>
 
-<!-- Shared modal -->
+<!-- Shared tournament modal -->
 <div class="modal" id="tournamentModal" hidden>
   <div class="modal-backdrop" id="modalBackdrop"></div>
   <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -1206,14 +1355,44 @@
   </div>
 </div>
 
+<!-- Shared mercenary modal -->
+<div class="modal" id="mercenaryModal" hidden>
+  <div class="modal-backdrop" id="mercModalBackdrop"></div>
+  <div class="modal-content compact" role="dialog" aria-modal="true" aria-labelledby="mercModalTitle">
+    <div class="modal-head">
+      <h2 id="mercModalTitle">용병 추가</h2>
+      <span class="modal-team-tag merc" id="mercModalTeamTag">MEN</span>
+      <button class="modal-close" id="mercModalClose" aria-label="닫기">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <span class="field-label">이름</span>
+        <input type="text" id="mName" placeholder="예: 홍길동" maxlength="20">
+      </div>
+      <div class="field">
+        <span class="field-label">소속 팀</span>
+        <input type="text" id="mTeam" placeholder="예: 상암 스파이커스" maxlength="40">
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div class="spacer"></div>
+      <button id="cancelMercBtn">취소</button>
+      <button class="primary" id="saveMercBtn">추가</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
+  const SQUAD_COLOR = '#6a95ff';
+  const MERC_COLOR  = '#ef4444';
+
   const ROLES = {
-    S:  { name: '세터', color: '#6a95ff' },
-    SP: { name: '속공', color: '#b489f5' },
-    A:  { name: '공격', color: '#ff8590' },
-    D:  { name: '수비', color: '#6ad4b3' },
+    S:  { name: '세터',  color: SQUAD_COLOR },
+    SP: { name: '속공',  color: SQUAD_COLOR },
+    A:  { name: '공격',  color: SQUAD_COLOR },
+    D:  { name: '수비',  color: SQUAD_COLOR },
   };
 
   const POSITIONS = ['속공','세터','레프트','앞차','백차','라이트','레프트백','센터백','라이트백'];
@@ -1266,10 +1445,9 @@
     return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
-  // Shared modal context: which team is being edited
   let modalContext = null;
+  let mercContext = null;
 
-  // Toast
   let toastTimer = null;
   function toast(msg) {
     const el = $('toast');
@@ -1294,15 +1472,17 @@
 
     let tournaments = [];
     let selectedTournamentId = null;
+    let mercenaries = [];
 
     const TOURN_KEY = `${storagePrefix}-tournaments`;
     const SEL_KEY = `${storagePrefix}-selected-tournament`;
     const STORAGE_KEY = `${storagePrefix}-lineup-default`;
+    const MERC_KEY = `${storagePrefix}-mercenaries`;
 
     const $q = (sel) => root.querySelector(sel);
-    const $qa = (sel) => root.querySelectorAll(sel);
 
-    const playerBy = (pid) => players.find(p => p.id === pid);
+    const playerBy = (pid) =>
+      players.find(p => p.id === pid) || mercenaries.find(m => m.id === pid);
     const onCourt = (pid) => POSITIONS.some(p => state.grid[p] === pid);
 
     // ---- Storage ----
@@ -1316,7 +1496,7 @@
               id: String(t.id),
               name: String(t.name),
               date: t.date || '',
-              playerIds: Array.isArray(t.playerIds) ? t.playerIds.filter(id => playerBy(id)) : [],
+              playerIds: Array.isArray(t.playerIds) ? t.playerIds.filter(id => players.find(p => p.id === id)) : [],
             }));
           }
         }
@@ -1335,6 +1515,25 @@
         if (selectedTournamentId) localStorage.setItem(SEL_KEY, selectedTournamentId);
         else localStorage.removeItem(SEL_KEY);
       } catch (e) {}
+    }
+    function loadMercenaries() {
+      try {
+        const raw = localStorage.getItem(MERC_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            mercenaries = parsed.filter(m => m && m.id && m.name).map(m => ({
+              id: String(m.id),
+              name: String(m.name),
+              affiliation: String(m.affiliation || ''),
+              isMercenary: true,
+            }));
+          }
+        }
+      } catch (e) { mercenaries = []; }
+    }
+    function persistMercenaries() {
+      try { localStorage.setItem(MERC_KEY, JSON.stringify(mercenaries)); } catch (e) {}
     }
     function readSavedDefault() {
       try {
@@ -1379,7 +1578,7 @@
     function renderTournamentButton() {
       const t = tournaments.find(x => x.id === selectedTournamentId);
       $q('.tournament-name').textContent = t ? t.name : '전체 선수';
-      $q('.tournament-count').textContent = getActivePlayers().length;
+      $q('.tournament-count').textContent = getActivePlayers().length + mercenaries.length;
     }
     function renderTournamentMenu() {
       const menu = $q('.tournament-menu');
@@ -1407,16 +1606,10 @@
     }
     function renderRoster() {
       const roster = $q('.roster');
-      const empty = $q('.roster-empty');
-      roster.innerHTML = '';
-      const active = getActivePlayers();
-      if (active.length === 0) {
-        roster.hidden = true;
-        empty.hidden = false;
-        return;
-      }
       roster.hidden = false;
-      empty.hidden = true;
+      roster.innerHTML = '';
+
+      const active = getActivePlayers();
       active.forEach(p => {
         const role = ROLES[p.role];
         const isOn = onCourt(p.id);
@@ -1427,11 +1620,38 @@
         el.title = `${p.name} · ${p.pref}`;
         el.style.setProperty('--role-color', role.color);
         el.innerHTML = `
-          <div class="player-num">${p.num}</div>
-          <div class="player-name">${p.name}</div>
+          <div class="player-num">${escapeHtml(p.num)}</div>
+          <div class="player-name">${escapeHtml(p.name)}</div>
         `;
         roster.appendChild(el);
       });
+
+      mercenaries.forEach(m => {
+        const isOn = onCourt(m.id);
+        const el = document.createElement('div');
+        el.className = 'player mercenary' + (isOn ? ' on-court' : '') + (state.selectedPlayer === m.id ? ' selected' : '');
+        el.setAttribute('draggable', isOn ? 'false' : 'true');
+        el.dataset.playerId = m.id;
+        el.title = `용병 · ${m.name}${m.affiliation ? ' · ' + m.affiliation : ''}`;
+        el.style.setProperty('--role-color', MERC_COLOR);
+        el.innerHTML = `
+          <button class="merc-delete" type="button" data-merc-id="${escapeHtml(m.id)}" aria-label="용병 삭제" title="삭제">✕</button>
+          <div class="player-num">용병</div>
+          <div class="player-name">${escapeHtml(m.name)}</div>
+          ${m.affiliation ? `<div class="player-affiliation">${escapeHtml(m.affiliation)}</div>` : ''}
+        `;
+        roster.appendChild(el);
+      });
+
+      const addBtn = document.createElement('button');
+      addBtn.type = 'button';
+      addBtn.className = 'add-merc-card';
+      addBtn.setAttribute('aria-label', '용병 추가하기');
+      addBtn.innerHTML = `
+        <span class="add-merc-plus">+</span>
+        <span class="add-merc-label">용병 추가하기</span>
+      `;
+      roster.appendChild(addBtn);
     }
     function renderCourt() {
       POSITIONS.forEach(pos => {
@@ -1442,14 +1662,26 @@
         const pid = state.grid[pos];
         if (pid) {
           const p = playerBy(pid);
-          const role = ROLES[p.role];
+          if (!p) {
+            state.grid[pos] = null;
+            slot.style.removeProperty('--role-color');
+            slot.title = `${pos} · 선수를 드래그하거나 선택 후 클릭`;
+            slot.innerHTML = `<span class="pos-label">${pos}</span>`;
+            return;
+          }
+          const isMerc = !!p.isMercenary;
+          const color = isMerc ? MERC_COLOR : ROLES[p.role].color;
           slot.classList.add('filled');
-          slot.style.setProperty('--role-color', role.color);
-          slot.title = `${pos} · ${p.name} (#${p.num}) · 클릭하여 해제`;
+          if (isMerc) slot.classList.add('mercenary');
+          slot.style.setProperty('--role-color', color);
+          slot.title = isMerc
+            ? `${pos} · 용병 · ${p.name}${p.affiliation ? ' (' + p.affiliation + ')' : ''} · 클릭하여 해제`
+            : `${pos} · ${p.name} (#${p.num}) · 클릭하여 해제`;
           slot.innerHTML = `
             <span class="pos-label">${pos}</span>
-            <span class="slot-num">${p.num}</span>
-            <span class="slot-name">${p.name}</span>
+            <span class="slot-num">${isMerc ? '용병' : escapeHtml(p.num)}</span>
+            <span class="slot-name">${escapeHtml(p.name)}</span>
+            ${isMerc && p.affiliation ? `<span class="slot-affiliation">${escapeHtml(p.affiliation)}</span>` : ''}
           `;
         } else {
           slot.style.removeProperty('--role-color');
@@ -1501,7 +1733,10 @@
       state.selectedPlayer = state.selectedPlayer === pid ? null : pid;
       renderRoster();
       renderCourt();
-      if (state.selectedPlayer) toast(`${playerBy(pid).name} 선택 · 포지션 클릭`);
+      if (state.selectedPlayer) {
+        const p = playerBy(pid);
+        if (p) toast(`${p.isMercenary ? '용병 ' : ''}${p.name} 선택 · 포지션 클릭`);
+      }
     }
     function selectTournament(tid) {
       selectedTournamentId = tid || null;
@@ -1556,7 +1791,7 @@
       toast('전체 해제');
     }
 
-    // ---- Tournament CRUD (called from shared modal) ----
+    // ---- Tournament CRUD ----
     function addTournament(t) {
       tournaments.push(t);
       selectedTournamentId = t.id;
@@ -1584,9 +1819,51 @@
       renderRoster();
     }
 
+    // ---- Mercenary CRUD ----
+    function addMercenary({ name, affiliation }) {
+      const merc = {
+        id: 'merc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+        name: String(name).trim(),
+        affiliation: String(affiliation || '').trim(),
+        isMercenary: true,
+      };
+      mercenaries.push(merc);
+      persistMercenaries();
+      renderTournamentButton();
+      renderRoster();
+      return merc;
+    }
+    function deleteMercenary(mid) {
+      POSITIONS.forEach(p => { if (state.grid[p] === mid) state.grid[p] = null; });
+      if (state.selectedPlayer === mid) state.selectedPlayer = null;
+      mercenaries = mercenaries.filter(m => m.id !== mid);
+      persistMercenaries();
+      renderTournamentButton();
+      renderRoster();
+      renderCourt();
+    }
+
     // ---- Event delegation ----
     const roster = $q('.roster');
     roster.addEventListener('click', (e) => {
+      const addBtn = e.target.closest('.add-merc-card');
+      if (addBtn) {
+        e.stopPropagation();
+        openMercenaryModal(self);
+        return;
+      }
+      const delBtn = e.target.closest('.merc-delete');
+      if (delBtn) {
+        e.stopPropagation();
+        const mid = delBtn.dataset.mercId;
+        const m = mercenaries.find(x => x.id === mid);
+        if (!m) return;
+        if (confirm(`용병 "${m.name}"을(를) 삭제하시겠습니까?`)) {
+          deleteMercenary(mid);
+          toast('용병이 삭제되었습니다');
+        }
+        return;
+      }
       const player = e.target.closest('.player');
       if (!player || player.classList.contains('on-court')) return;
       togglePlayerSelect(player.dataset.playerId);
@@ -1633,7 +1910,7 @@
       e.preventDefault();
       slot.classList.remove('drag-over');
       const pid = e.dataTransfer.getData('text/plain');
-      if (pid && players.find(p => p.id === pid)) placePlayer(pid, slot.dataset.pos);
+      if (pid && playerBy(pid)) placePlayer(pid, slot.dataset.pos);
     });
 
     const tournamentBtn = $q('.tournament-btn');
@@ -1662,6 +1939,7 @@
 
     // ---- Init ----
     loadTournaments();
+    loadMercenaries();
     const initial = readSavedDefault();
     if (initial) {
       POSITIONS.forEach(p => state.grid[p] = initial.grid[p]);
@@ -1672,16 +1950,19 @@
     const self = {
       id, root, players, teamLabel,
       get tournaments() { return tournaments; },
+      get mercenaries() { return mercenaries; },
       addTournament,
       updateTournamentById,
       deleteTournamentById,
+      addMercenary,
+      deleteMercenary,
       renderAll,
       closeMenu,
     };
     return self;
   }
 
-  // ---- Shared modal ----
+  // ---- Shared tournament modal ----
   function openTournamentModal(team, existing) {
     modalContext = {
       team,
@@ -1712,7 +1993,7 @@
       return `
         <label class="player-check" style="--role-color:${role.color}">
           <input type="checkbox" data-player-id="${escapeHtml(p.id)}" ${checked.has(p.id) ? 'checked' : ''}>
-          <span class="chk-num">${p.num}</span>
+          <span class="chk-num">${escapeHtml(p.num)}</span>
           <span class="chk-name">${escapeHtml(p.name)}</span>
         </label>
       `;
@@ -1770,11 +2051,46 @@
     $('tCount').textContent = modalContext.editing.playerIds.length;
   });
 
+  // ---- Shared mercenary modal ----
+  function openMercenaryModal(team) {
+    mercContext = { team };
+    $('mercModalTeamTag').textContent = team.teamLabel;
+    $('mercenaryModal').setAttribute('data-team', team.id);
+    $('mName').value = '';
+    $('mTeam').value = '';
+    $('mercenaryModal').hidden = false;
+    setTimeout(() => $('mName').focus(), 0);
+  }
+  function closeMercenaryModal() {
+    $('mercenaryModal').hidden = true;
+    mercContext = null;
+  }
+  function saveMercenaryFromModal() {
+    if (!mercContext) return;
+    const name = $('mName').value.trim();
+    const affiliation = $('mTeam').value.trim();
+    if (!name) { toast('용병 이름을 입력하세요'); $('mName').focus(); return; }
+    mercContext.team.addMercenary({ name, affiliation });
+    closeMercenaryModal();
+    toast('용병이 추가되었습니다');
+  }
+
+  $('mercModalClose').addEventListener('click', closeMercenaryModal);
+  $('cancelMercBtn').addEventListener('click', closeMercenaryModal);
+  $('saveMercBtn').addEventListener('click', saveMercenaryFromModal);
+  $('mercModalBackdrop').addEventListener('click', closeMercenaryModal);
+  ['mName', 'mTeam'].forEach(id => {
+    $(id).addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); saveMercenaryFromModal(); }
+    });
+  });
+
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.tournament-select')) closeAllTournamentMenus();
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      if (!$('mercenaryModal').hidden) { closeMercenaryModal(); return; }
       if (!$('tournamentModal').hidden) { closeTournamentModal(); return; }
       closeAllTournamentMenus();
     }
@@ -1812,6 +2128,7 @@
     try { localStorage.setItem(TEAM_KEY, teamId); } catch (e) {}
     closeAllTournamentMenus();
     if (!$('tournamentModal').hidden) closeTournamentModal();
+    if (!$('mercenaryModal').hidden) closeMercenaryModal();
   }
   document.querySelectorAll('.switch-btn').forEach(b => {
     b.addEventListener('click', () => setActiveTeam(b.dataset.teamTarget));
