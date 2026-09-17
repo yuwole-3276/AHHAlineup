@@ -908,17 +908,139 @@
   }
 
   @media (max-width: 640px) {
-    .court {
-      aspect-ratio: 4 / 3.2;
-      padding: 22px 12px;
-      gap: 12px 4px;
+    body {
+      padding: 14px 12px;
     }
-    .slot { padding: 4px; }
-    .pos-label { font-size: 12px; }
-    .slot-num { font-size: 20px; }
-    .slot-name { font-size: 9px; }
-    h1 { font-size: 42px; }
-    .team-header { padding-bottom: 16px; margin-bottom: 16px; }
+    .page {
+      gap: 8px;
+    }
+    .team-switch-bar {
+      top: 8px;
+      margin-bottom: 0;
+    }
+    .switch-btn {
+      padding: 6px 16px;
+      min-width: 66px;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+    }
+    .team-header {
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+    }
+    .season {
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      margin-bottom: 6px;
+    }
+    h1 { font-size: 38px; }
+    h1 .script { font-size: 0.52em; }
+    .layout { gap: 14px; }
+    .court-wrap {
+      padding: 14px 14px 16px;
+      border-radius: 10px;
+    }
+    .net-line {
+      height: 20px;
+      margin-bottom: 2px;
+    }
+    .net-line span {
+      font-size: 10px;
+      letter-spacing: 0.36em;
+      padding: 0 10px;
+    }
+    .court {
+      aspect-ratio: 5 / 4;
+      padding: 14px 8px 16px;
+      gap: 8px 3px;
+      border-width: 3px;
+    }
+    .slot {
+      padding: 4px 2px;
+      border-radius: 10px;
+    }
+    .slot.filled { border-width: 2px; }
+    .pos-label {
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+    .slot.filled .pos-label {
+      font-size: 9px;
+      margin-bottom: 2px;
+      letter-spacing: 0.08em;
+    }
+    .slot-num {
+      font-size: 22px;
+    }
+    .slot-name {
+      font-size: 10px;
+    }
+    .card-head {
+      padding: 12px 14px;
+    }
+    .card-title {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+    }
+    .tournament-btn {
+      padding: 4px 6px;
+      gap: 8px;
+    }
+    .tournament-btn .tournament-name {
+      font-size: 12px;
+    }
+    .tournament-btn .tournament-count {
+      font-size: 14px;
+    }
+    .roster-wrap {
+      padding: 10px 10px 12px;
+    }
+    .roster {
+      gap: 6px;
+      max-height: none;
+    }
+    .player {
+      min-height: 68px;
+      padding: 10px 4px 8px;
+    }
+    .player-num {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+    .player-name {
+      font-size: 11px;
+    }
+    .controls {
+      padding: 12px 14px 14px;
+      gap: 6px;
+    }
+    button {
+      padding: 10px 10px;
+      font-size: 12px;
+    }
+    .modal {
+      padding: 12px;
+    }
+    .modal-content {
+      max-height: 92vh;
+      border-radius: 10px;
+    }
+    .modal-head {
+      padding: 14px 18px;
+    }
+    .modal-head h2 { font-size: 18px; }
+    .modal-body {
+      padding: 16px 18px;
+      gap: 14px;
+    }
+    .player-check-list {
+      grid-template-columns: 1fr;
+      max-height: 230px;
+    }
+    .modal-foot {
+      padding: 12px 18px;
+      flex-wrap: wrap;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
